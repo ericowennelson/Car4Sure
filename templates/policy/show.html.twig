@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Policy{% endblock %}
+
+{% block body %}
+<div class="container">
+        <h2 class="text-center mt-5 mb-3">Policy</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{{ path('app_policy_index') }}"> 
+                    Policy list
+                </a>
+            </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ policy.id }}</td>
+            </tr>
+            <tr>
+                <th>Policy No</th>
+                <td>{{ policy.policyNo }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ policy.policyStatus }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ policy.policyType }}</td>
+            </tr>
+            <tr>
+                <th>Effective Date</th>
+                <td>{{ policy.policyEffectiveDate ? policy.policyEffectiveDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Expiration Date</th>
+                <td>{{ policy.policyExpirationDate ? policy.policyExpirationDate|date('Y-m-d') : '' }}</td>
+            </tr>
+             <tr>
+                <th>Policy Holder</th>
+                <td>
+                    {% set holder = policy.policyHolder %}
+                    <table class="table  table-borderless table-sm  ">
+                        <tbody>
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ holder.firstName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>{{ holder.lastName }}</td>
+                            </tr> 
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ holder.address.street}} {{ holder.address.city}} {{ holder.address.state}} {{ holder.address.zip }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+             <tr>
+                <th>Drivers</th>
+                <td>
+                    {% for driver in policy.drivers %}
+
+                    <table class="table  table-borderless table-sm  ">
+                        <thead><tr><th colspan=2>
+                            <div class="mb-2 text-primary">Driver No {{ loop.index }}</div>
+                            </th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ driver.firstName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>{{ driver.lastName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Age</th>
+                                <td>{{ driver.age }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{ driver.gender }}</td>
+                            </tr>
+                            <tr>
+                                <th>Marital Status</th>
+                                <td>{{ driver.maritalStatus }}</td>
+                            </tr>
+                            <tr>
+                                <th>License Number</th>
+                                <td>{{ driver.licenseNumber }}</td>
+                            </tr>
+                            <tr>
+                                <th>License State</th>
+                                <td>{{ driver.licenseState }}</td>
+                            </tr>
+                            <tr>
+                                <th>License Status</th>
+                                <td>{{ driver.licenseStatus }}</td>
+                            </tr>
+                            <tr>
+                                <th>License Effective Date</th>
+                                <td>{{ driver.licenseEffectiveDate ? driver.licenseEffectiveDate|date('d-m-Y') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>License Expiration Date</th>
+                                <td>{{ driver.licenseExpirationDate ? driver.licenseExpirationDate|date('d-m-Y') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>License Class</th>
+                                <td>{{ driver.licenseClass }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </td>
+            </tr>
+             <tr>
+                <th>Drivers</th>
+                <td>
+                    {% for vehicle in policy.vehicles %}
+
+                    <table class="table  table-borderless table-sm  ">
+                        <thead><tr><th colspan=2>
+                            <div class="mb-2 text-primary">Vehicle No {{ loop.index }}</div>
+                            </th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <th>Year</th>
+                                <td>{{ vehicle.year }}</td>
+                            </tr>
+                            <tr>
+                                <th>Make</th>
+                                <td>{{ vehicle.make }}</td>
+                            </tr>
+                            <tr>
+                                <th>Model</th>
+                                <td>{{ vehicle.model }}</td>
+                            </tr>
+                            <tr>
+                                <th>Vin</th>
+                                <td>{{ vehicle.vin }}</td>
+                            </tr>
+                            <tr>
+                                <th>Vehicle Usage</th>
+                                <td>{{ vehicle.vehicleUsage }}</td>
+                            </tr>
+                            <tr>
+                                <th>Primary Use</th>
+                                <td>{{ vehicle.primaryUse }}</td>
+                            </tr>
+                            <tr>
+                                <th>Annual Mileage</th>
+                                <td>{{ vehicle.annualMileage }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ownership</th>
+                                <td>{{ vehicle.ownership }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+   
+    <div class="card">
+            <div class="card-header">
+    <a class="btn btn-sm btn-success" href="{{ path('app_policy_edit', {'id': policy.id}) }}">Edit</a>
+
+     {{ include('policy/_delete_form.html.twig') }}
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

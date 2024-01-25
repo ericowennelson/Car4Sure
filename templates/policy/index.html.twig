@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Policy index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Manage policies</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{{ path('app_policy_new') }}"> 
+                    New policy
+                </a>
+            </div>
+            <div class="card-body">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Policy No</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Effective Date</th>
+                <th>Expiration Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for policy in policies %}
+            <tr>
+                <td>{{ policy.id }}</td>
+                <td>{{ policy.policyNo }}</td>
+                <td class={{ (policy.policyStatus == 'Active')?'text-success':'text-danger' }}>{{ policy.policyStatus }}</td>
+                <td>{{ policy.policyType }}</td>
+                <td>{{ policy.policyEffectiveDate ? policy.policyEffectiveDate|date('d-m-Y') : '' }}</td>
+                <td>{{ policy.policyExpirationDate ? policy.policyExpirationDate|date('d-m-Y') : '' }}</td>
+                <td>
+                    <form method="post" style="float: right;" action="{{ path('app_policy_delete', {'id': policy.id}) }}" onsubmit="return confirm('Do you confirm deletion of this policy?');">
+                        <a class="btn btn-sm btn-info" href="{{ path('app_policy_show', {'id': policy.id}) }}">Show</a>
+                        <a class="btn btn-sm btn-success" href="{{ path('app_policy_edit', {'id': policy.id}) }}">Edit</a>
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ policy.id) }}">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                    <form method="post" style="display: inline-block;width:auto;float: right; margin-right:5px;" action="{{ path('app_policy_status_change', {'id': policy.id}) }}" onsubmit="return confirm('Do you want to set policy {{ (policy.policyStatus == 'Active')?'Inactive':'Active' }}?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('statusChange' ~ policy.id) }}">
+                    <button class="btn btn-sm btn-warning">Set {{ (policy.policyStatus == 'Active')?'Inactive':'Active' }}</button>
+                </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+        </div>
+    </div>
+{% endblock %}

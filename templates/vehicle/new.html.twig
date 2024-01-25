@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Vehicle{% endblock %}
+
+{% block body %}
+   <div class="container">
+        <h2 class="text-center mt-5 mb-3">New Vehicle</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-info float-right" href="{{ path('app_vehicle_index') }}">Vehicle list</a>
+            </div>
+            <div class="card-body">
+                {% include 'vehicle/_form.html.twig' with {'button_label': 'Save', 'button_color': 'btn-success'}  %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

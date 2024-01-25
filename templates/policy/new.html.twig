@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Policy{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">New Policy</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-info float-right" href="{{ path('app_policy_index') }}">Policy list</a>
+            </div>
+            <div class="card-body">
+                {% include 'policy/_form.html.twig' with {'button_label': 'Save', 'button_color': 'btn-success'}  %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Holder{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Policy holder</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{{ path('app_holder_index') }}"> 
+                    Policy holder list
+                </a>
+            </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ holder.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ holder.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ holder.lastName }}</td>
+            </tr> 
+            <tr>
+                <th>Address</th>
+                <td>{{ holder.address.street}} {{ holder.address.city}} {{ holder.address.state}} {{ holder.address.zip }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="card">
+            <div class="card-header">
+    <a class="btn btn-sm btn-success" href="{{ path('app_holder_edit', {'id': holder.id}) }}">Edit</a>
+
+     {{ include('holder/_delete_form.html.twig') }}
+    </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

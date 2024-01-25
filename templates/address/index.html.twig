@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Address index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Manage Addresses</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{{ path('app_address_new') }}"> 
+                    New address
+                </a>
+            </div>
+            <div class="card-body overflow-auto">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for address in addresses %}
+            <tr>
+                <td>{{ address.id }}</td>
+                <td>{{ address.street }}</td>
+                <td>{{ address.city }}</td>
+                <td>{{ address.state }}</td>
+                <td>{{ address.zip }}</td>
+                <td>
+                     <form method="post" style="float: right;" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('Do you confirm deletion of this address?');">
+                        <a class="btn btn-sm btn-info" href="{{ path('app_address_show', {'id': address.id}) }}">Show</a>
+                        <a class="btn btn-sm btn-success" href="{{ path('app_address_edit', {'id': address.id}) }}">Edit</a>
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+        </div>
+    </div>
+{% endblock %}

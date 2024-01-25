@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Holder index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Manage policy holders</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{{ path('app_holder_new') }}"> 
+                    New policy holder
+                </a>
+            </div>
+            <div class="card-body">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for holder in holders %}
+            <tr>
+                <td>{{ holder.id }}</td>
+                <td>{{ holder.firstName }}</td>
+                <td>{{ holder.lastName }}</td>
+                <td>
+
+                    <form method="post" style="float: right;" action="{{ path('app_holder_delete', {'id': holder.id}) }}" onsubmit="return confirm('Do you confirm deletion of this policy holder?');">
+                        <a class="btn btn-sm btn-info" href="{{ path('app_holder_show', {'id': holder.id}) }}">Show</a>
+                        <a class="btn btn-sm btn-success" href="{{ path('app_holder_edit', {'id': holder.id}) }}">Edit</a>
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ holder.id) }}">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+     </div>
+        </div>
+    </div>
+
+{% endblock %}

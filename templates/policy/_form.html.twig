@@ -1,0 +1,7 @@
+{{ form_start(form, {'attr': {'class': 'form-group'}}) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-sm {{ button_color|default('btn-primary') }}  mt-3"">{{ button_label|default('Save') }}</button>
+    <a class="btn btn-sm btn-secondary align-bottom " href="{{ app.request.headers.get('referer') }}"> 
+                    Cancel
+                </a>
+{{ form_end(form) }}

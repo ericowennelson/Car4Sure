@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vehicle{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Vehicle</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{{ path('app_vehicle_index') }}"> 
+                    Vehicle list
+                </a>
+            </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vehicle.id }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ vehicle.year }}</td>
+            </tr>
+            <tr>
+                <th>Make</th>
+                <td>{{ vehicle.make }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ vehicle.model }}</td>
+            </tr>
+            <tr>
+                <th>Vin</th>
+                <td>{{ vehicle.vin }}</td>
+            </tr>
+            <tr>
+                <th>Vehicle Usage</th>
+                <td>{{ vehicle.vehicleUsage }}</td>
+            </tr>
+            <tr>
+                <th>Primary Use</th>
+                <td>{{ vehicle.primaryUse }}</td>
+            </tr>
+            <tr>
+                <th>Annual Mileage</th>
+                <td>{{ vehicle.annualMileage }}</td>
+            </tr>
+            <tr>
+                <th>Ownership</th>
+                <td>{{ vehicle.ownership }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="card">
+            <div class="card-header">
+    <a class="btn btn-sm btn-success" href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}">Edit</a>
+
+     {{ include('vehicle/_delete_form.html.twig') }}
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
